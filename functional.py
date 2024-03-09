@@ -15,6 +15,8 @@ from scipy.io.wavfile import write as write_wav
 import pygame
 import pyaudio
 import wave
+import soundfile
+
 #initialize the audio player
 pygame.init()
 #Speech recognition encoder
@@ -71,12 +73,17 @@ def list_output_devices(show=True):
                 output_device_array.append("Output Device id " + str(i) + " - " + p.get_device_info_by_host_api_device_index(0,i).get('name'))
     return output_device_array
 
-def listen(source, recognizer=r):
+def listen(source, recognizer=r, window=None):
     recognizer.adjust_for_ambient_noise(source, duration=0.2)
     print("Listening")
+    if window is not None:
+        window['-MLINE-'].update("\n" + "Listening" + "\n", append=True, autoscroll=True)
+        window.refresh()
     audio2 = r.listen(source=source)
     MyText = r.recognize_google(audio2)
     MyText = MyText.lower()
+    if window is not None:
+        window['-MLINE-'].update("Customer input: " + MyText, append=True, autoscroll=True)
     return MyText
 
 def AI_response_to_speech(question):
@@ -90,8 +97,12 @@ def get_first_integer(string):
     return integer
 
 def pa_play_wav(filename, device = None):
+    
     CHUNK = 1023
-    with wave.open(filename, 'rb') as wf:
+    data, samplerate = soundfile.read(filename)
+    soundfile.write('new.wav', data, samplerate, subtype='PCM_16')
+
+    with wave.open('new.wav', 'rb') as wf:
         # Instantiate PyAudio and initialize PortAudio system resources (1)
         p = pyaudio.PyAudio()
 
