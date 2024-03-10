@@ -49,9 +49,8 @@ for message in st.session_state.messages:
         st.write(message["content"])
 
 
-user_prompt = st.chat_input()
 
-if user_prompt is not None:
+if (user_prompt := st.chat_input()) is not None:
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.write(user_prompt)

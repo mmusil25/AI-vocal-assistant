@@ -1,6 +1,5 @@
 from functional import *
-QT = False
-if QT:
+if QT := False:
     import PySimpleGUIQt as sg
 else:
     import PySimpleGUI as sg
