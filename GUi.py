@@ -40,11 +40,11 @@ def entry_point():
     # Create the event loop
     chat_history_ids_list = []
     version_string = "0.1"
-    welcome_string = f"\n\n" \
-                     f" ***************************************\n" \
-                     f" Vocal Assistant v" + version_string + " \n" \
-                     f" ***************************************\n" \
-                     f" Press start and to begin speaking with the AI. Speak when \"listening\" is printed." 
+    welcome_string = "\n\n" \
+                     " ***************************************\n" \
+                     " Vocal Assistant v" + version_string + " \n" \
+                     " ***************************************\n" \
+                     " Press start and to begin speaking with the AI. Speak when \"listening\" is printed." 
     window['-MLINE-'].update(welcome_string, append=True, autoscroll=True)
     window['-MLINE-'].update("", append=True, autoscroll=True)
 
